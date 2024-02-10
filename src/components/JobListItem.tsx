@@ -1,13 +1,13 @@
 import BookmarkIcon from "./BookmarkIcon";
-import {JobItem} from "../lib/types.ts";
+import {TJobItem} from "../lib/types.ts";
 
 
-export default function JobListItem({ jobItem }: { jobItem: JobItem }) {
+export default function JobListItem({ jobItem }: { jobItem: TJobItem }) {
   const { title, company, daysAgo, badgeLetters } = jobItem;
 
   return (
     <li className="job-item">
-      <a className="job-item__link">
+      <a href={`#${jobItem.id}`} className="job-item__link">
         <div className="job-item__badge">{badgeLetters}</div>
 
         <div className="job-item__middle">
