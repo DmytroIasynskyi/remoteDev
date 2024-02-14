@@ -1,6 +1,8 @@
 import {FormEvent} from "react";
+import {useJobItemContext} from "../lib/hooks.ts";
 
 export default function SearchForm() {
+    const {searchText, setSearchText} = useJobItemContext();
 
     function handleSubmit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();

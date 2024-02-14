@@ -2,21 +2,20 @@ import Background from "./components/Background.tsx";
 import Header from "./components/Header.tsx";
 import Container from "./components/Container.tsx";
 import Footer from "./components/Footer.tsx";
-import {useState} from "react";
-import {useJobItems} from "./lib/hooks.ts";
+import JobItemsContextProvider from "./contexts/JobItemsContextProvider.tsx";
 
 function App() {
-    const [searchText, setSearchText] = useState("");
-    const {jobItemsSliced, isLoading} = useJobItems(searchText);
-
 
     return (
         <>
             <Background/>
-            <Header/>
-            <Container/>
+            <JobItemsContextProvider>
+                <Header/>
+                <Container/>
+            </JobItemsContextProvider>
             <Footer/>
-        </>);
+        </>
+    )
 }
 
 export default App;

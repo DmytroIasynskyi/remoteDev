@@ -1,40 +1,42 @@
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {BASE_API_URL} from "./constants.ts";
-import {TJobItem, TJobItemDetails} from "./types.ts";
+import {JobItemsContext} from "../contexts/JobItemsContextProvider.tsx";
+import {TJobItemDetails} from "./types.ts";
 
-export function useJobItems(searchText: string) {
-    const [jobItems, setJobItems] = useState<TJobItem[]>([]);
+
+export function useActiveJobItem(id: number | null) {
+    const [jobItemDetails, setJobItemDetails] = useState<TJobItemDetails | null>(null);
     const [isLoading, setIsLoading] = useState(false);
-    const jobItemsSliced = jobItems.slice(0, 7);
 
-    useEffect( () => {
-        if (!searchText) return;
+
+    useEffect(() => {
+        if (!id) return;
+
         async function fetchData() {
             setIsLoading(true);
-            const response = await fetch(`${BASE_API_URL}?search=${searchText}`);
+            const response = await fetch(`${BASE_API_URL}/${id}`);
             const data = await response.json();
             setIsLoading(false);
-            setJobItems(data.jobItems);
+            setJobItemDetails(data.jobItem);
         }
-        fetchData();
-    }, [searchText]);
 
-    return {
-        jobItemsSliced,
-        isLoading
-    };
+        fetchData();
+    }, [id]);
+
+    return {jobItemDetails, isLoading}
 }
 
-export function useActiveJobItem() {
-    const [jobItemDetails, setJobItemDetails] = useState<TJobItemDetails | null>(null);
+export function useActiveId() {
     const [activeId, setActiveId] = useState<number | null>(null);
 
+    // get activeID from URL hash
     useEffect(() => {
         function handleHashChange() {
             const id = +window.location.hash.slice(1);
             if (!id) return;
             setActiveId(id);
         }
+
         handleHashChange();
         window.addEventListener("hashchange", handleHashChange);
         return () => {
@@ -42,15 +44,31 @@ export function useActiveJobItem() {
         }
     }, []);
 
-    useEffect(() => {
-        if (!activeId) return;
-        async function fetchData() {
-            const response = await fetch(`${BASE_API_URL}/${activeId}`);
-            const data = await response.json();
-            setJobItemDetails(data.jobItem);
-        }
-        fetchData();
-    }, [activeId]);
+    return activeId;
+}
 
-    return jobItemDetails;
+export function useJobItemContext() {
+    const context = useContext(JobItemsContext);
+    if (!context) {
+        throw new Error(
+            "useJobItemContext must be used within a JobItemsProvider"
+        );
+    }
+    return context;
+}
+
+export function useDebounce<T>(value: T, delay = 500): T {
+    const [debouncedValue, setDebouncedValue] = useState<T>(value)
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setDebouncedValue(value)
+        }, delay)
+
+        return () => {
+            clearTimeout(timer)
+        }
+    }, [value, delay])
+
+    return debouncedValue
 }
