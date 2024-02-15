@@ -2,8 +2,6 @@ import {TJobItemApiResponse} from "../lib/types.ts";
 import {BASE_API_URL} from "../lib/constants.ts";
 import {useQuery} from "@tanstack/react-query";
 
-
-
 export function useActiveJobItem(id: number | null) {
     const {data, isInitialLoading} = useQuery( // кешує попередньо обрані айтеми у списку, щоб не робити зайві запити на сервер
         ["job-item", id],
