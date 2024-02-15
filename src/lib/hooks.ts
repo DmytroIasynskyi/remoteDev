@@ -1,29 +1,26 @@
 import {useContext, useEffect, useState} from "react";
 import {BASE_API_URL} from "./constants.ts";
 import {JobItemsContext} from "../contexts/JobItemsContextProvider.tsx";
-import {TJobItemDetails} from "./types.ts";
-
+import {useQuery} from "@tanstack/react-query";
 
 export function useActiveJobItem(id: number | null) {
-    const [jobItemDetails, setJobItemDetails] = useState<TJobItemDetails | null>(null);
-    const [isLoading, setIsLoading] = useState(false);
-
-
-    useEffect(() => {
-        if (!id) return;
-
-        async function fetchData() {
-            setIsLoading(true);
+    const {data, isLoading} = useQuery( // кешує попередньо обрані айтеми у списку, щоб не робити зайві запити на сервер
+        ["job-item", id],
+        async () => {
+            if (!id) return;
             const response = await fetch(`${BASE_API_URL}/${id}`);
-            const data = await response.json();
-            setIsLoading(false);
-            setJobItemDetails(data.jobItem);
+            return await response.json();
+        },
+        {
+            staleTime: 1000 * 60 * 60,
+            refetchOnWindowFocus: false,
+            retry: false,
+            enabled: !!id
         }
+    )
 
-        fetchData();
-    }, [id]);
-
-    return {jobItemDetails, isLoading}
+    const jobItemDetails  = data?.jobItem;
+    return {jobItemDetails, isLoading};
 }
 
 export function useActiveId() {
