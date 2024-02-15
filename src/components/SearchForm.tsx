@@ -1,5 +1,5 @@
 import {FormEvent} from "react";
-import {useJobItemContext} from "../lib/hooks.ts";
+import {useJobItemContext} from "../hooks/useJobItemContext.ts";
 
 export default function SearchForm() {
     const {searchText, setSearchText} = useJobItemContext();

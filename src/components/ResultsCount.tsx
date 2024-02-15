@@ -1,7 +1,8 @@
-import {useJobItemContext} from "../lib/hooks.ts";
+import {useJobItemContext} from "../hooks/useJobItemContext.ts";
 
 export default function ResultsCount() {
-  const {jobItemsCount} = useJobItemContext();
+  const {jobItems} = useJobItemContext();
+  const jobItemsCount = jobItems.length;
 
   return <p className="count"><span className="u-bold">{jobItemsCount}</span> results</p>;
 }

@@ -2,7 +2,7 @@ import Background from "./components/Background.tsx";
 import Header from "./components/Header.tsx";
 import Container from "./components/Container.tsx";
 import Footer from "./components/Footer.tsx";
-import JobItemsContextProvider from "./contexts/JobItemsContextProvider.tsx";
+import JobItemsContextProvider from "./context/JobItemsContextProvider.tsx";
 
 function App() {
 

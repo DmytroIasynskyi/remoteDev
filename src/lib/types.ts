@@ -25,3 +25,14 @@ export type TJobItemDetails = {
     companyURL: string;
 };
 
+export type TJobItemApiResponse = {
+    public: boolean;
+    jobItem: TJobItemDetails;
+}
+
+export type TJobItemsApiResponse = {
+    public: boolean;
+    sorted: boolean;
+    jobItems: TJobItem[];
+}
+
