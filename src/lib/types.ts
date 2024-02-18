@@ -36,3 +36,6 @@ export type TJobItemsApiResponse = {
     jobItems: TJobItem[];
 }
 
+export type TSortBy = "relevant" | "recent";
+
+export type TPageDirection = "next" | "prev";
