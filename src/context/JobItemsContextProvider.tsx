@@ -51,7 +51,7 @@ function JobItemsContextProvider({ children }: {children: ReactNode}) {
             jobItemsCount,
             sortBy,
             setSortBy,
-            handleSortBy
+            handleSortBy,
         }}>
             {children}
         </JobItemsContext.Provider>

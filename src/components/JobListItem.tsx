@@ -7,7 +7,7 @@ type TJobListItemProps = {
 }
 
 export default function JobListItem({ jobItem, isActive }: TJobListItemProps) {
-  const { title, company, daysAgo, badgeLetters } = jobItem;
+  const { id, title, company, daysAgo, badgeLetters } = jobItem;
 
   return (
     <li className={`job-item ${isActive && 'job-item--active'}` }>
@@ -20,7 +20,7 @@ export default function JobListItem({ jobItem, isActive }: TJobListItemProps) {
         </div>
 
         <div className="job-item__right">
-          <BookmarkIcon />
+          <BookmarkIcon id={id}/>
           <time className="job-item__time">{daysAgo}d</time>
         </div>
       </a>

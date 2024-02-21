@@ -4,6 +4,7 @@ import Container from "./components/Container.tsx";
 import Footer from "./components/Footer.tsx";
 import JobItemsContextProvider from "./context/JobItemsContextProvider.tsx";
 import {Toaster} from "react-hot-toast";
+import BookmarksContextProvider from "./context/BookmarksContextProvider.tsx";
 
 function App() {
 
@@ -11,11 +12,13 @@ function App() {
         <>
             <Background/>
             <JobItemsContextProvider>
-                <Header/>
-                <Container/>
+                <BookmarksContextProvider>
+                    <Header/>
+                    <Container/>
+                </BookmarksContextProvider>
             </JobItemsContextProvider>
             <Footer/>
-            <Toaster position={"top-right"} />
+            <Toaster position={"top-right"}/>
         </>
     )
 }

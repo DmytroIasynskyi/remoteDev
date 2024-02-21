@@ -4,7 +4,8 @@ import {useActiveJobItem} from "../hooks/useActiveJobItem.ts";
 import {useActiveId} from "../hooks/useActiveId.ts";
 export default function JobItemContent() {
   const activeId = useActiveId();
-  const {jobItemDetails, isLoading} = useActiveJobItem(activeId);
+  const { jobItemDetails, isLoading} = useActiveJobItem(activeId);
+
 
   if (isLoading) {
     return <LoadingJobContent/>;
@@ -36,7 +37,7 @@ export default function JobItemContent() {
               <div className="job-info__below-badge">
                 <time className="job-info__time">{jobItemDetails.daysAgo}d</time>
 
-                <BookmarkIcon/>
+                <BookmarkIcon id={jobItemDetails.id}/>
               </div>
             </div>
 
