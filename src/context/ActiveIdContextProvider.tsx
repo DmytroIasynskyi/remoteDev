@@ -1,6 +1,10 @@
-import {useEffect, useState} from "react";
+import {createContext, ReactNode, useEffect, useState} from "react";
 
-export function useActiveId() {
+export const ActiveIdContext = createContext<{
+  activeId: number | null
+} | null>(null);
+
+function ActiveIdContextProvider({ children }: {children: ReactNode}) {
     const [activeId, setActiveId] = useState<number | null>(null);
 
     // get activeID from URL hash
@@ -18,5 +22,13 @@ export function useActiveId() {
         }
     }, []);
 
-    return activeId;
+    return (
+        <ActiveIdContext.Provider value={{
+           activeId
+        }}>
+            {children}
+        </ActiveIdContext.Provider>
+    );
 }
+
+export default ActiveIdContextProvider;
