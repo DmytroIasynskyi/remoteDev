@@ -1,7 +1,7 @@
 import JobListItem from "./JobListItem.tsx";
 import Spinner from "./Spinner.tsx";
 import {TJobItem} from "../lib/types.ts";
-import {useActiveIdContext} from "../hooks/useActiveIdContext.ts";
+import {useActiveIdContext} from "../hooks/useContext.ts";
 
 export function JobList({isLoading, jobItems}: { isLoading: boolean, jobItems: TJobItem[] }) {
     const  { activeId } = useActiveIdContext();

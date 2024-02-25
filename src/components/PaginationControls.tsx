@@ -1,7 +1,7 @@
 import {ArrowLeftIcon, ArrowRightIcon} from "@radix-ui/react-icons";
-import {useJobItemContext} from "../hooks/useJobItemContext.ts";
 import {RESULTS_PER_PAGE} from "../lib/constants.ts";
 import {TPageDirection} from "../lib/types.ts";
+import {useJobItemContext} from "../hooks/useContext.ts";
 
 export default function PaginationControls() {
     const {currentPage, setCurrentPage, jobItemsCount} = useJobItemContext();

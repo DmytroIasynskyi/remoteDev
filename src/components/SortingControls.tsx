@@ -1,4 +1,4 @@
-import {useJobItemContext} from "../hooks/useJobItemContext.ts";
+import {useJobItemContext} from "../hooks/useContext.ts";
 
 export default function SortingControls() {
     const {sortBy, handleSortBy} = useJobItemContext();

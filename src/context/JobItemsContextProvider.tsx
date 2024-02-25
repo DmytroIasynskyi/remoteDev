@@ -1,14 +1,11 @@
 import {createContext, ReactNode, useState} from "react";
 import {TJobItem, TSortBy} from "../lib/types.ts";
-import {useDebounce} from "../hooks/useDebounce.ts";
 import {useSearchQuery} from "../hooks/useSearchQuery.ts";
+import {useSearchTextContext} from "../hooks/useContext.ts";
 
 export const JobItemsContext = createContext<{
     isLoading: boolean;
     jobItemsSorted: TJobItem[];
-    debouncedSearchText: string;
-    setSearchText: (searchText: string) => void;
-    searchText: string;
     currentPage: number;
     setCurrentPage: (currentPage: number) => void;
     jobItemsCount: number;
@@ -19,8 +16,8 @@ export const JobItemsContext = createContext<{
 } | null>(null);
 
 function JobItemsContextProvider({ children }: {children: ReactNode}) {
-    const [searchText, setSearchText] = useState("");
-    const debouncedSearchText = useDebounce(searchText, 500);
+
+    const {debouncedSearchText} = useSearchTextContext();
     const {jobItems, isLoading} = useSearchQuery(debouncedSearchText);
     const [currentPage, setCurrentPage ] = useState(1);
     const jobItemsCount = jobItems.length || 0;
@@ -42,9 +39,6 @@ function JobItemsContextProvider({ children }: {children: ReactNode}) {
 
     return (
         <JobItemsContext.Provider value={{
-            searchText,
-            debouncedSearchText,
-            setSearchText,
             isLoading,
             jobItemsSorted,
             currentPage,
