@@ -3,6 +3,7 @@ import {useBookmarksContext} from "../hooks/useBookmsrksContext.ts";
 
 export default function BookmarkIcon({id}: { id: number }) {
     const {handleToggleBookmark, bookmarkedIds} = useBookmarksContext();
+
     return (
         <button className="bookmark-btn">
             <BookmarkFilledIcon

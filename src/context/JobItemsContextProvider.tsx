@@ -1,7 +1,7 @@
 import {createContext, ReactNode, useState} from "react";
 import {TJobItem, TSortBy} from "../lib/types.ts";
 import {useDebounce} from "../hooks/useDebounce.ts";
-import {useJobItems} from "../hooks/useJobitems.ts";
+import {useSearchQuery} from "../hooks/useSearchQuery.ts";
 
 export const JobItemsContext = createContext<{
     isLoading: boolean;
@@ -15,12 +15,13 @@ export const JobItemsContext = createContext<{
     sortBy: TSortBy;
     setSortBy: (sortBy: TSortBy) => void;
     handleSortBy: (event: React.MouseEvent<HTMLButtonElement>) => void;
+    jobItems: TJobItem[];
 } | null>(null);
 
 function JobItemsContextProvider({ children }: {children: ReactNode}) {
     const [searchText, setSearchText] = useState("");
     const debouncedSearchText = useDebounce(searchText, 500);
-    const {jobItems, isLoading} = useJobItems(debouncedSearchText);
+    const {jobItems, isLoading} = useSearchQuery(debouncedSearchText);
     const [currentPage, setCurrentPage ] = useState(1);
     const jobItemsCount = jobItems.length || 0;
     const [sortBy, setSortBy] = useState<TSortBy>("relevant");
@@ -52,6 +53,7 @@ function JobItemsContextProvider({ children }: {children: ReactNode}) {
             sortBy,
             setSortBy,
             handleSortBy,
+            jobItems
         }}>
             {children}
         </JobItemsContext.Provider>

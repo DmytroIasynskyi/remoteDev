@@ -3,7 +3,7 @@ import {useQuery} from "@tanstack/react-query";
 import {TJobItemsApiResponse} from "../lib/types.ts";
 import {handleError} from "../lib/utils.ts";
 
-export function useJobItems(searchText: string) {
+export function useSearchQuery(searchText: string) {
     const {data, isInitialLoading} = useQuery( // кешує попередньо обрані айтеми у списку, щоб не робити зайві запити на сервер
         ['job-items', searchText],
         () => fetchJobItems(searchText),
@@ -21,7 +21,7 @@ export function useJobItems(searchText: string) {
     } as const;
 }
 
-async function fetchJobItems(searchText: string): Promise<TJobItemsApiResponse>  {
+export async function fetchJobItems(searchText: string): Promise<TJobItemsApiResponse>  {
     try {
         const response = await fetch(`${BASE_API_URL}?search=${searchText}`);
         const data = await response.json();

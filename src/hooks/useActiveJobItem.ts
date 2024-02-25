@@ -21,7 +21,7 @@ export function useActiveJobItem(id: number | null) {
     } as const;
 }
 
-async function fetchJobItem (id: number) : Promise<TJobItemApiResponse> {
+export async function fetchJobItem (id: number) : Promise<TJobItemApiResponse> {
     try {
         const response = await fetch(`${BASE_API_URL}/${id}`);
         const data = await response.json();

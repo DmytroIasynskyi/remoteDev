@@ -8,19 +8,13 @@ export type TJobItem = {
     daysAgo: number;
 };
 
-export type TJobItemDetails = {
-    id: number;
-    title: string;
+export type TJobItemDetails = TJobItem & {
     qualifications: string[];
     reviews: string[];
-    company: string;
     description: string;
-    badgeLetters: string;
     duration: string;
     salary: string;
     location: string;
-    relevanceScore: number;
-    daysAgo: number;
     coverImgURL: string;
     companyURL: string;
 };
